@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
+import { getStudents } from "@/api/student";
+import { heading } from "@/config/data";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import AddUser from "./AddUser";
+import { DeleteBtn } from "./DeleteBtn";
 import FilterBox from "./FilterBox";
 import SearchBox from "./SearchBox";
-import { heading } from "@/config/data";
-import { getStudents } from "@/api/student";
-import { Button } from "./ui/button";
-import { Pencil, Trash2 } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
 import UpdateUser from "./UpdateUser";
 
 const Dashboard = () => {
@@ -71,13 +70,8 @@ const Dashboard = () => {
                 <td className="px-6 py-4">{item.age}</td>
                 <td className="px-4 py-4">
                   <div className="flex gap-4">
-                    <UpdateUser />
-                    <Button
-                      className="bg-transparent hover:bg-slate-300 text-red-600"
-                      size={"icon"}
-                    >
-                      <Trash2 />
-                    </Button>
+                    <UpdateUser userId={item.id} />
+                    <DeleteBtn userId={item.id} />
                   </div>
                 </td>
               </tr>
