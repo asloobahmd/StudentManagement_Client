@@ -109,14 +109,22 @@ const CreateUserForm = ({ setIsModalOpen }) => {
           >
             Course
           </label>
-
-          <input
-            type="text"
+          <select
+            name="course"
             id="course"
+            defaultValue=""
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="Course"
             {...register("course")}
-          />
+          >
+            <option value="" disabled>
+              choose a course
+            </option>
+            <option value="DSA">DSA</option>
+            <option value="Computing Maths">Computing Maths</option>
+            <option value="Database Management">Database Management</option>
+            <option value="Web Technology">Web Technology</option>
+            <option value="Software Testing">Software Testing</option>
+          </select>
           {errors.course && (
             <p className="text-sm text-red-500">{errors.course.message}</p>
           )}

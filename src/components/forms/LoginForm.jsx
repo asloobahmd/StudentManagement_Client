@@ -1,10 +1,13 @@
 import { AuthContext } from "@/context/AuthContext";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../ui/button";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const { login } = useContext(AuthContext);
 
@@ -13,12 +16,14 @@ const LoginForm = () => {
   const HandleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // console.log({ username, password });
+      setLoading(true);
       await login({ username, password });
+      setLoading(false);
 
       navigate("/");
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+      setError(error.response.data);
     }
   };
 
@@ -60,12 +65,14 @@ const LoginForm = () => {
         />
       </div>
 
-      <button
+      <Button
         type="submit"
+        isLoading={loading}
         className="w-full text-white bg-black hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
       >
         Login
-      </button>
+      </Button>
+      <p className="text-red-500">{error ? error : ""}</p>
     </form>
   );
 };

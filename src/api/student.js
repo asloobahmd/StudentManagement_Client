@@ -1,8 +1,22 @@
 import API from ".";
 
-export const getStudents = async () => {
+export const getStudents = async ({
+  currentPage,
+  pageSize,
+  q,
+  course,
+  sortBy,
+}) => {
   try {
-    const res = await API.get("/students");
+    const res = await API.get("/students", {
+      params: {
+        page: currentPage,
+        pageSize: pageSize,
+        q: q,
+        course: course,
+        sortBy: sortBy,
+      },
+    });
     return res.data;
   } catch (error) {
     throw error;
